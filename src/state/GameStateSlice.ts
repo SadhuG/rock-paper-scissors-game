@@ -11,6 +11,7 @@ interface GameState {
 	computerWins: number;
 	draws: number;
 	isAnimating: boolean;
+	inputsDisabled: boolean;
 	gameResult: string | null;
 }
 
@@ -25,6 +26,7 @@ const initialState: GameState = {
 	computerWins: 0,
 	draws: 0,
 	isAnimating: false,
+	inputsDisabled: false,
 	gameResult: null,
 };
 
@@ -41,6 +43,7 @@ export const playRoundAsync = createAsyncThunk(
 		dispatch(setComputerChoice(computerChoice));
 		dispatch(setRoundResult(roundWinner));
 		dispatch(setIsAnimating(true));
+		dispatch(setInputDisabled(true));
 
 		// Log the choices and winner
 		console.log(
@@ -55,6 +58,7 @@ export const playRoundAsync = createAsyncThunk(
 		// Update final states
 		dispatch(setIsAnimating(false));
 		dispatch(updateScores(roundWinner));
+		dispatch(setInputDisabled(false));
 	}
 );
 
@@ -76,10 +80,6 @@ export const gameStateSlice = createSlice({
 			state.playerChoice = playerInput.payload;
 		},
 
-		setIsAnimating: (state, isAnimatingInput) => {
-			state.isAnimating = isAnimatingInput.payload;
-		},
-
 		setComputerChoice: (state, action: PayloadAction<string>) => {
 			state.computerChoice = action.payload;
 		},
@@ -99,6 +99,12 @@ export const gameStateSlice = createSlice({
 					break;
 			}
 		},
+		setIsAnimating: (state, actions) => {
+			state.isAnimating = actions.payload;
+		},
+		setInputDisabled: (state, actions) => {
+			state.inputsDisabled = actions.payload;
+		},
 	},
 });
 
@@ -111,6 +117,7 @@ export const {
 	setComputerChoice,
 	setRoundResult,
 	updateScores,
+	setInputDisabled,
 } = gameStateSlice.actions;
 export default gameStateSlice.reducer;
 
