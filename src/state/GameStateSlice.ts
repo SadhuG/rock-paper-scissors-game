@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface GameState {
 	gameType: string;
@@ -10,6 +10,7 @@ interface GameState {
 	playerWins: number;
 	computerWins: number;
 	draws: number;
+	isAnimating: boolean;
 	gameResult: string | null;
 }
 
@@ -23,8 +24,39 @@ const initialState: GameState = {
 	playerWins: 0,
 	computerWins: 0,
 	draws: 0,
+	isAnimating: false,
 	gameResult: null,
 };
+
+// Create the async thunk
+export const playRoundAsync = createAsyncThunk(
+	"gameState/playRoundAsync",
+	async (_, { dispatch, getState }) => {
+		const state = getState() as { gameState: GameState };
+		const computerChoice = getComputerChoice();
+		const playerChoice = state.gameState.playerChoice;
+		const roundWinner = determineRoundResult(playerChoice, computerChoice);
+
+		// First dispatch immediate state updates
+		dispatch(setComputerChoice(computerChoice));
+		dispatch(setRoundResult(roundWinner));
+		dispatch(setIsAnimating(true));
+
+		// Log the choices and winner
+		console.log(
+			`User choice: ${playerChoice}
+            Computer choice: ${computerChoice},
+            Winner: ${roundWinner}`
+		);
+
+		// Wait for animation
+		await new Promise((resolve) => setTimeout(resolve, 2010));
+
+		// Update final states
+		dispatch(setIsAnimating(false));
+		dispatch(updateScores(roundWinner));
+	}
+);
 
 export const gameStateSlice = createSlice({
 	name: "gameState",
@@ -43,30 +75,19 @@ export const gameStateSlice = createSlice({
 		setPlayerChoice: (state, playerInput) => {
 			state.playerChoice = playerInput.payload;
 		},
-		setComputerChoice: (state, computerInput) => {
-			state.computerChoice = computerInput.payload;
-		},
-		setRoundResult: (state, result) => {
-			state.roundResult = result.payload;
+
+		setIsAnimating: (state, isAnimatingInput) => {
+			state.isAnimating = isAnimatingInput.payload;
 		},
 
-		// This is Game Logic
-		playRound: (state) => {
-			const computerChoice = getComputerChoice();
-			setComputerChoice(computerChoice);
-			const playerChoice = state.playerChoice;
-
-			const roundWinner = determineRoundResult(playerChoice, computerChoice);
-			setRoundResult(roundWinner);
-
-			// Log the choices and the winner
-			console.log(
-				`User choice: ${playerChoice} 
-				Computer choice: ${computerChoice}, 
-				Winner: ${roundWinner}`
-			);
-
-			switch (roundWinner) {
+		setComputerChoice: (state, action: PayloadAction<string>) => {
+			state.computerChoice = action.payload;
+		},
+		setRoundResult: (state, action: PayloadAction<string>) => {
+			state.roundResult = action.payload;
+		},
+		updateScores: (state, action: PayloadAction<string>) => {
+			switch (action.payload) {
 				case "win":
 					state.playerWins += 1;
 					break;
@@ -76,12 +97,7 @@ export const gameStateSlice = createSlice({
 				case "draw":
 					state.draws += 1;
 					break;
-
-				default:
-					break;
 			}
-
-			
 		},
 	},
 });
@@ -91,9 +107,10 @@ export const {
 	setTotalRounds,
 	currentRoundIncrement,
 	setPlayerChoice,
+	setIsAnimating,
 	setComputerChoice,
-	playRound,
 	setRoundResult,
+	updateScores,
 } = gameStateSlice.actions;
 export default gameStateSlice.reducer;
 
