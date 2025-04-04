@@ -1,5 +1,7 @@
-// hooks and react
+// hooks and states
+import { setGameType, setTotalRounds } from "@/state/GameStateSlice";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 // ui components
 import { Button } from "./ui/button";
@@ -20,6 +22,8 @@ const GameTypeAndRoundsFrom = () => {
 	const [formIsOpen, setFormIsOpen] = useState(true);
 	const [inputValue, setInputValue] = useState(3);
 
+	const dispatch = useDispatch();
+
 	// Triggers form submission when "Enter" key is pressed in the input field
 	// Prevents the "." "-" "+" from getting registered into the input field
 	function handleInputKeyDown(e: InputKeyDownEvent) {
@@ -35,9 +39,19 @@ const GameTypeAndRoundsFrom = () => {
 	}
 
 	function handelSubmit(gameType: string) {
-		// set game type and rounds here
+		dispatch(setGameType(gameType));
+		if (gameType == "rounds") {
+			if (inputValue <= 0 || inputValue % 1 != 0 || isNaN(inputValue)) {
+				alert(
+					"Please enter the number of rounds a whole number greater than 0 to play (eg. 3,5,7)"
+				);
+				return;
+			}
+			dispatch(setTotalRounds(inputValue));
+		}
 		setFormIsOpen(false);
 	}
+
 	return (
 		<Dialog open={formIsOpen}>
 			<DialogContent className="[&>button]:hidden">
@@ -54,8 +68,8 @@ const GameTypeAndRoundsFrom = () => {
 						onKeyDown={handleInputKeyDown}
 						className="[appearance:textfield] rounded-lg border border-slate-800 p-2 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
 					/>
-					<Button onClick={(e) => handelSubmit("rounds")}>Play Rounds</Button>
-					<Button onClick={(e) => handelSubmit("pnp")}>Pass & Play</Button>
+					<Button onClick={() => handelSubmit("rounds")}>Play Rounds</Button>
+					<Button onClick={() => handelSubmit("pnp")}>Pass & Play</Button>
 				</DialogDescription>
 			</DialogContent>
 		</Dialog>

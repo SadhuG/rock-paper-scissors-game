@@ -1,25 +1,36 @@
 import React from "react";
 
+import { RootState } from "@/state/store";
+import { useSelector } from "react-redux";
+
 const ScoresAndGameDisplay = () => {
+	const gameState = useSelector((state: RootState) => state.gameState);
 	return (
 		<div className="text-center">
 			<p>
-				Game Type: <span>pnp</span>
+				Game Type:{" "}
+				<span>
+					{gameState.gameType === "rounds" ? "Rounds" : "Pass & Play"}
+				</span>
+			</p>
+			{gameState.gameType === "rounds" ? (
+				<p>
+					Total Rounds: <span>{gameState.totalRounds}</span>
+				</p>
+			) : (
+				""
+			)}
+			<p>
+				Current Round: <span>{gameState.currentRound}</span>
 			</p>
 			<p>
-				Total Rounds: <span>3</span>
+				Draws: <span>{gameState.draws}</span>
 			</p>
 			<p>
-				Current Round: <span>1</span>
+				Player Won: <span>{gameState.playerWins}</span>
 			</p>
 			<p>
-				Ties: <span>1</span>
-			</p>
-			<p>
-				Player Won: <span>1</span>
-			</p>
-			<p>
-				Computer Won: <span>0</span>
+				Computer Won: <span>{gameState.computerWins}</span>
 			</p>
 		</div>
 	);

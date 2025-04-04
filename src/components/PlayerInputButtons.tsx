@@ -1,9 +1,13 @@
+import { playRound, setPlayerChoice } from "@/state/GameStateSlice";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Button } from "./ui/button";
 
 const playerInputButtons = () => {
+	const dispatch = useDispatch();
 	function handleClick(userInput: string) {
-		console.log(userInput);
+		dispatch(setPlayerChoice(userInput));
+		dispatch(playRound());
 	}
 
 	return (
