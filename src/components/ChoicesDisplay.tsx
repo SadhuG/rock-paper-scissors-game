@@ -1,7 +1,7 @@
 import { RootState } from "@/state/store";
 import React from "react";
 import { useSelector } from "react-redux";
-import RoundResultCard from "./ui/result-card";
+import RoundResultCard from "./ui/round-result-card";
 import SlotCard from "./ui/slot-card";
 
 const ChoicesDisplay = () => {

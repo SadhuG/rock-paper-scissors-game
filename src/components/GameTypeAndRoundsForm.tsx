@@ -1,5 +1,5 @@
 // hooks and states
-import { setGameType, setTotalRounds } from "@/state/GameStateSlice";
+import { GameType, setGameType, setTotalRounds } from "@/state/GameStateSlice";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -38,9 +38,9 @@ const GameTypeAndRoundsFrom = () => {
 		setInputValue(parseInt(e.target.value));
 	}
 
-	function handelSubmit(gameType: string) {
+	function handelSubmit(gameType: GameType) {
 		dispatch(setGameType(gameType));
-		if (gameType == "rounds") {
+		if (gameType === "rounds") {
 			if (inputValue <= 0 || inputValue % 1 != 0 || isNaN(inputValue)) {
 				alert(
 					"Please enter the number of rounds a whole number greater than 0 to play (eg. 3,5,7)"
