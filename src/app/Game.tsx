@@ -8,6 +8,7 @@ import Image from "next/image";
 
 // Components
 import ChoicesDisplay from "@/components/ChoicesDisplay";
+import EndGameDialog from "@/components/EndGameDialog";
 import GameEndResult from "@/components/GameEndResult";
 import GameTypeAndRoundsFrom from "@/components/GameTypeAndRoundsForm";
 import PlayerInputButtons from "@/components/PlayerInputButtons";
@@ -51,7 +52,7 @@ const Game = () => {
 			<ScoresAndGameDisplay />
 			<div className="flex justify-around">
 				<RulesDialog />
-				<button>End Game</button>
+				<EndGameDialog />
 			</div>
 		</div>
 	);
