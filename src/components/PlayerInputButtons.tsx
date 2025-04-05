@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../state/store"; // You'll need to create this type
 import { Button } from "./ui/button";
 
-const PlayerInputButtons: React.FC = () => {
+const PlayerInputButtons = () => {
 	const state = useSelector((state: RootState) => state.gameState);
 	// Use AppDispatch instead of default dispatch
 	const dispatch = useDispatch<AppDispatch>();
