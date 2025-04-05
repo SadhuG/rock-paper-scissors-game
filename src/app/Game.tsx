@@ -8,6 +8,7 @@ import Image from "next/image";
 
 // Components
 import ChoicesDisplay from "@/components/ChoicesDisplay";
+import GameEndResult from "@/components/GameEndResult";
 import GameTypeAndRoundsFrom from "@/components/GameTypeAndRoundsForm";
 import PlayerInputButtons from "@/components/PlayerInputButtons";
 import ScoresAndGameDisplay from "@/components/ScoresAndGameDisplay";
@@ -17,6 +18,7 @@ const Game = () => {
 	return (
 		<div className="container mx-auto p-4">
 			<TapToContinue />
+			<GameEndResult />
 			<GameTypeAndRoundsFrom />
 			<div className="flex justify-center">
 				<h1 className="flex">

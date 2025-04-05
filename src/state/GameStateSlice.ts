@@ -7,6 +7,7 @@ export type GameWinner = "player" | "computer" | "draw" | null;
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface GameState {
+	displayGameTypeInput: boolean;
 	gameType: GameType;
 	totalRounds: number;
 	currentRound: number;
@@ -24,6 +25,7 @@ interface GameState {
 }
 
 const initialState: GameState = {
+	displayGameTypeInput: true,
 	gameType: "pnp",
 	totalRounds: 0,
 	currentRound: 0,
@@ -91,11 +93,17 @@ export const gameStateSlice = createSlice({
 	name: "gameState",
 	initialState,
 	reducers: {
+		setDisplayGameTypeInput: (state, action: PayloadAction<boolean>) => {
+			state.displayGameTypeInput = action.payload;
+		},
 		setGameType: (state, action: PayloadAction<GameType>) => {
 			state.gameType = action.payload;
 		},
 		setTotalRounds: (state, action: PayloadAction<number>) => {
 			state.totalRounds = action.payload;
+		},
+		incrementCurrentRound: (state) => {
+			state.currentRound += 1;
 		},
 		setPlayerChoice: (state, action: PayloadAction<Choice>) => {
 			state.playerChoice = action.payload;
@@ -132,8 +140,10 @@ export const gameStateSlice = createSlice({
 			// Reset round-specific states
 			state.displayRoundResult = false;
 			state.inputsDisabled = false;
-			state.currentRound += 1;
 
+			if (state.gameType === "pnp") {
+				state.currentRound += 1;
+			}
 			// Only check for game winner in rounds mode
 			if (state.gameType === "rounds") {
 				const isGameOver = state.currentRound === state.totalRounds;
@@ -145,14 +155,36 @@ export const gameStateSlice = createSlice({
 					state.gameWinner = winner;
 					state.displayGameWinner = true;
 				}
+				if (!isGameOver) {
+					state.currentRound += 1;
+				}
 			}
+		},
+		gameRestart: (state) => {
+			state.displayGameTypeInput = true;
+			state.gameType = "pnp";
+			state.totalRounds = 0;
+			state.currentRound = 0;
+			state.playerChoice = "parcel";
+			state.computerChoice = "parcel";
+			state.roundResult = null;
+			state.playerWins = 0;
+			state.computerWins = 0;
+			state.draws = 0;
+			state.isAnimating = false;
+			state.inputsDisabled = false;
+			state.displayRoundResult = false;
+			state.gameWinner = null;
+			state.displayGameWinner = false;
 		},
 	},
 });
 
 export const {
+	setDisplayGameTypeInput,
 	setGameType,
 	setTotalRounds,
+	incrementCurrentRound,
 	setPlayerChoice,
 	setIsAnimating,
 	setComputerChoice,
@@ -161,6 +193,7 @@ export const {
 	setInputDisabled,
 	setDisplayRoundResult,
 	endRound,
+	gameRestart,
 } = gameStateSlice.actions;
 export default gameStateSlice.reducer;
 

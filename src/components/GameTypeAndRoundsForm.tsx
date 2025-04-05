@@ -1,9 +1,16 @@
 // hooks and states
-import { GameType, setGameType, setTotalRounds } from "@/state/GameStateSlice";
+import {
+	GameType,
+	incrementCurrentRound,
+	setDisplayGameTypeInput,
+	setGameType,
+	setTotalRounds,
+} from "@/state/GameStateSlice";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // ui components
+import { RootState } from "@/state/store";
 import { Button } from "./ui/button";
 import {
 	Dialog,
@@ -19,10 +26,11 @@ interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
 interface InputKeyDownEvent extends React.KeyboardEvent<HTMLInputElement> {}
 
 const GameTypeAndRoundsFrom = () => {
-	const [formIsOpen, setFormIsOpen] = useState(true);
 	const [inputValue, setInputValue] = useState(3);
 
+	const state = useSelector((state: RootState) => state.gameState);
 	const dispatch = useDispatch();
+	const formIsOpen = state.displayGameTypeInput;
 
 	// Triggers form submission when "Enter" key is pressed in the input field
 	// Prevents the "." "-" "+" from getting registered into the input field
@@ -39,7 +47,6 @@ const GameTypeAndRoundsFrom = () => {
 	}
 
 	function handelSubmit(gameType: GameType) {
-		dispatch(setGameType(gameType));
 		if (gameType === "rounds") {
 			if (inputValue <= 0 || inputValue % 1 != 0 || isNaN(inputValue)) {
 				alert(
@@ -49,7 +56,9 @@ const GameTypeAndRoundsFrom = () => {
 			}
 			dispatch(setTotalRounds(inputValue));
 		}
-		setFormIsOpen(false);
+		dispatch(setGameType(gameType));
+		dispatch(incrementCurrentRound());
+		dispatch(setDisplayGameTypeInput(false));
 	}
 
 	return (
