@@ -1,4 +1,4 @@
-import { gameRestart, GameWinner } from "@/state/GameStateSlice";
+import { gameRestart } from "@/state/GameStateSlice";
 import { RootState } from "@/state/store";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,12 +36,17 @@ const messages = {
 
 const GameEndResult = () => {
 	const dispatch = useDispatch();
+
 	const [resultMessage, setResultMessage] = useState<
 		(typeof messages)["player" | "computer" | "draw"] | null
 	>(null);
+
 	const state = useSelector((state: RootState) => state.gameState);
+
 	const gameWinner = state.gameWinner;
+
 	const displayResult = state.displayGameWinner;
+
 	useEffect(() => {
 		if (displayResult && gameWinner) {
 			setResultMessage(messages[gameWinner]);

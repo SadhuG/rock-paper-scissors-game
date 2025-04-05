@@ -11,6 +11,7 @@ import ChoicesDisplay from "@/components/ChoicesDisplay";
 import GameEndResult from "@/components/GameEndResult";
 import GameTypeAndRoundsFrom from "@/components/GameTypeAndRoundsForm";
 import PlayerInputButtons from "@/components/PlayerInputButtons";
+import RulesDialog from "@/components/RulesDialog";
 import ScoresAndGameDisplay from "@/components/ScoresAndGameDisplay";
 import TapToContinue from "@/components/TapToContinue";
 
@@ -49,7 +50,7 @@ const Game = () => {
 
 			<ScoresAndGameDisplay />
 			<div className="flex justify-around">
-				<button>Rules</button>
+				<RulesDialog />
 				<button>End Game</button>
 			</div>
 		</div>
