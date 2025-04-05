@@ -1,7 +1,7 @@
 import React from "react";
+
 // Importing Images
 import paper from "@/assets/paper.png";
-import parcel from "@/assets/parcel.png";
 import rock from "@/assets/rock.png";
 import scissors from "@/assets/scissors.png";
 import Image from "next/image";
@@ -11,10 +11,12 @@ import ChoicesDisplay from "@/components/ChoicesDisplay";
 import GameTypeAndRoundsFrom from "@/components/GameTypeAndRoundsForm";
 import PlayerInputButtons from "@/components/PlayerInputButtons";
 import ScoresAndGameDisplay from "@/components/ScoresAndGameDisplay";
+import TapToContinue from "@/components/TapToContinue";
 
 const Game = () => {
 	return (
 		<div className="container mx-auto p-4">
+			<TapToContinue />
 			<GameTypeAndRoundsFrom />
 			<div className="flex justify-center">
 				<h1 className="flex">
