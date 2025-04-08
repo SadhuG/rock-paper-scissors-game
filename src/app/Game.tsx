@@ -18,11 +18,11 @@ import TapToContinue from "@/components/TapToContinue";
 
 const Game = () => {
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 text-2xl text-zinc-400 lg:text-3xl">
       <TapToContinue />
       <GameEndResult />
       <GameTypeAndRoundsFrom />
-      <div className="flex justify-center">
+      <div className="flex justify-center space-y-1.5">
         <h1 className="flex">
           <span className="hidden">Rock Paper Scissors</span>
           <Image src={rock} alt="rock" width={50} height={50} />
@@ -30,12 +30,18 @@ const Game = () => {
           <Image src={scissors} alt="scissors" width={50} height={50} />
         </h1>
       </div>
-      <ChoicesDisplay />
+      <section className="mt-4">
+        <ChoicesDisplay />
+      </section>
 
-      <PlayerInputButtons />
+      <section className="mt-4">
+        <PlayerInputButtons />
+      </section>
 
-      <ScoresAndGameDisplay />
-      <div className="flex justify-around">
+      <section className="mt-4">
+        <ScoresAndGameDisplay />
+      </section>
+      <div className="mt-4 flex justify-between">
         <RulesDialog />
         <EndGameDialog />
       </div>
