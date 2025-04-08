@@ -15,7 +15,7 @@ const ChoicesDisplay = () => {
         <p className="text-center">Player</p>
       </div>
       <div className="w-full border max-md:col-span-full max-md:row-start-2">
-        <div className="mx-auto flex aspect-square flex-col items-center justify-center border max-md:w-1/2 max-md:max-w-40 lg:w-4/5">
+        <div className="mx-auto flex aspect-square flex-col items-center justify-center gap-3 border max-md:w-1/2 max-md:max-w-40 lg:w-4/5">
           {state.displayRoundResult ? (
             <>
               <RoundResultCard displayResult={state.displayRoundResult} />
@@ -23,7 +23,7 @@ const ChoicesDisplay = () => {
             </>
           ) : (
             <>
-              <span> v/s</span>
+              <span className="text-6xl font-bold"> v/s</span>
             </>
           )}
         </div>
