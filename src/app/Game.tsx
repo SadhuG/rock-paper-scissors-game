@@ -17,45 +17,30 @@ import ScoresAndGameDisplay from "@/components/ScoresAndGameDisplay";
 import TapToContinue from "@/components/TapToContinue";
 
 const Game = () => {
-	return (
-		<div className="container mx-auto p-4">
-			<TapToContinue />
-			<GameEndResult />
-			<GameTypeAndRoundsFrom />
-			<div className="flex justify-center">
-				<h1 className="flex">
-					<span className="hidden">Rock Paper Scissors</span>
-					<Image
-						src={rock}
-						alt="rock"
-						width={50}
-						height={50}
-					/>
-					<Image
-						src={paper}
-						alt="paper"
-						width={50}
-						height={50}
-					/>
-					<Image
-						src={scissors}
-						alt="scissors"
-						width={50}
-						height={50}
-					/>
-				</h1>
-			</div>
-			<ChoicesDisplay />
+  return (
+    <div className="container mx-auto p-4">
+      <TapToContinue />
+      <GameEndResult />
+      <GameTypeAndRoundsFrom />
+      <div className="flex justify-center">
+        <h1 className="flex">
+          <span className="hidden">Rock Paper Scissors</span>
+          <Image src={rock} alt="rock" width={50} height={50} />
+          <Image src={paper} alt="paper" width={50} height={50} />
+          <Image src={scissors} alt="scissors" width={50} height={50} />
+        </h1>
+      </div>
+      <ChoicesDisplay />
 
-			<PlayerInputButtons />
+      <PlayerInputButtons />
 
-			<ScoresAndGameDisplay />
-			<div className="flex justify-around">
-				<RulesDialog />
-				<EndGameDialog />
-			</div>
-		</div>
-	);
+      <ScoresAndGameDisplay />
+      <div className="flex justify-around">
+        <RulesDialog />
+        <EndGameDialog />
+      </div>
+    </div>
+  );
 };
 
 export default Game;
