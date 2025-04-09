@@ -56,7 +56,7 @@ const RoundResultCard: React.FC<RoundResultCardProps> = ({ displayResult }) => {
     <>
       {resultMessage && (
         <div
-          className={`flex h-full w-full flex-col items-center-safe rounded-3xl py-4 text-center text-2xl font-medium text-white ${resultMessage.backgroundGradient}`}
+          className={`flex h-full w-full flex-col items-center-safe rounded-3xl py-4 text-center text-xl font-medium text-white ${resultMessage.backgroundGradient}`}
         >
           <div className="flex items-center-safe justify-center">
             <Image

@@ -78,9 +78,14 @@ const GameEndResult = () => {
     <Dialog open={displayResult}>
       <DialogContent className="flex flex-col items-center justify-center text-white [&>button]:hidden">
         <DialogHeader>
-          <DialogTitle>{resultMessage?.title}</DialogTitle>
+          <DialogTitle>
+            <h3 className="text-4xl md:text-5xl lg:text-6xl">
+              {resultMessage?.title}
+            </h3>
+          </DialogTitle>
         </DialogHeader>
         <Image
+          unoptimized
           src={resultMessage.image}
           alt={resultMessage.alt}
           width={200}

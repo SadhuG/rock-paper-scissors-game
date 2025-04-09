@@ -165,6 +165,11 @@ export const gameStateSlice = createSlice({
         }
       }
     },
+    exitGame: (state) => {
+      const winner = determineGameWinner(state.playerWins, state.computerWins);
+      state.gameWinner = winner;
+      state.displayGameWinner = true;
+    },
     gameRestart: (state) => {
       state.displayGameTypeInput = true;
       state.gameType = "pnp";
@@ -198,6 +203,7 @@ export const {
   setInputDisabled,
   setDisplayRoundResult,
   endRound,
+  exitGame,
   gameRestart,
 } = gameStateSlice.actions;
 export default gameStateSlice.reducer;

@@ -3,18 +3,21 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { gameRestart } from "@/state/GameStateSlice";
+import { exitGame, gameRestart } from "@/state/GameStateSlice";
 import React from "react";
 import { useDispatch } from "react-redux";
 
 const EndGameDialog = () => {
   const dispatch = useDispatch();
+
+  function handleExit() {
+    dispatch(exitGame());
+  }
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -31,11 +34,10 @@ const EndGameDialog = () => {
         </DialogHeader>
         <p> Do you really want to exit game?</p>
         <DialogFooter>
-          <DialogClose asChild>
+          <DialogClose asChild onClick={() => handleExit()}>
             <Button
               type="button"
               variant="secondary"
-              onClick={() => dispatch(gameRestart())}
               className="rounded-lg border-none bg-rose-600 text-xl font-medium text-white hover:bg-rose-800 hover:text-white focus:ring-4 focus:ring-rose-300 focus:outline-none lg:text-2xl dark:bg-rose-500 dark:hover:bg-rose-700 dark:focus:ring-rose-900"
             >
               Yes

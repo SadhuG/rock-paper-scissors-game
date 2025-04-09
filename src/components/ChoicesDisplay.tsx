@@ -21,7 +21,6 @@ const ChoicesDisplay = () => {
           {state.displayRoundResult ? (
             <>
               <RoundResultCard displayResult={state.displayRoundResult} />
-              <p className="text-base text-white">Tap to continue</p>
             </>
           ) : (
             <>
@@ -29,6 +28,11 @@ const ChoicesDisplay = () => {
             </>
           )}
         </div>
+        {state.displayRoundResult ? (
+          <p className="text-center text-base text-white/80">Tap to continue</p>
+        ) : (
+          ""
+        )}
       </div>
       <div className="w-full">
         <div className="mx-auto aspect-square max-w-40 lg:w-4/5 lg:max-w-44">
