@@ -50,6 +50,7 @@ const RoundResultCard: React.FC<RoundResultCardProps> = ({ displayResult }) => {
     } else {
       setResultMessage(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [displayResult, roundResult]);
 
   return (

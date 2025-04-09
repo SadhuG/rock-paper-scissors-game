@@ -62,6 +62,7 @@ const SlotCard: React.FC<SlotCardProps> = ({ player }) => {
         clearInterval(interval);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.isAnimating, state.playerChoice, state.computerChoice]);
 
   // useEffect for border color
@@ -86,6 +87,7 @@ const SlotCard: React.FC<SlotCardProps> = ({ player }) => {
     if (state.roundResult === null) {
       setBorderClr("border-zinc-400");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.displayRoundResult, state.roundResult]);
 
   return (

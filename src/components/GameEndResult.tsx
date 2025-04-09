@@ -70,6 +70,7 @@ const GameEndResult = () => {
     } else {
       setResultMessage(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [displayResult]);
 
   if (!resultMessage) return null;

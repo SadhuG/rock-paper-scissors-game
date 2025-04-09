@@ -22,10 +22,6 @@ import {
 } from "./ui/dialog";
 import { Input } from "./ui/input";
 
-// types for events
-interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
-interface InputKeyDownEvent extends React.KeyboardEvent<HTMLInputElement> {}
-
 const GameTypeAndRoundsFrom = () => {
   const [inputValue, setInputValue] = useState(3);
 
@@ -35,7 +31,7 @@ const GameTypeAndRoundsFrom = () => {
 
   // Triggers form submission when "Enter" key is pressed in the input field
   // Prevents the "." "-" "+" from getting registered into the input field
-  function handleInputKeyDown(e: InputKeyDownEvent) {
+  function handleInputKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "." || e.key === "e" || e.key === "+" || e.key === "-") {
       e.preventDefault();
     }
@@ -43,7 +39,7 @@ const GameTypeAndRoundsFrom = () => {
   }
 
   // Handles any change in the input and parseInt is added to convert strings accepted by form input into numbers (Stupid react problems)
-  function handleInputChange(e: InputChangeEvent) {
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setInputValue(parseInt(e.target.value));
   }
 

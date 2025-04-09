@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -61,7 +60,8 @@ const RulesDialog = () => {
 
           <ul className="flex list-inside list-disc flex-col items-start gap-2">
             <li>
-              You can start the game by selecting "rock", "scissors" or "paper".
+              You can start the game by selecting &quot;rock&quot;,
+              &quot;scissors&quot; or &quot;paper&quot;.
             </li>
             <li>Rock beats scissors, scissors beats paper, paper beats rock</li>
           </ul>

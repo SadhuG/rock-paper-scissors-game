@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { exitGame, gameRestart } from "@/state/GameStateSlice";
+import { exitGame } from "@/state/GameStateSlice";
 import React from "react";
 import { useDispatch } from "react-redux";
 
